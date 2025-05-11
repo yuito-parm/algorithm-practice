@@ -1,11 +1,5 @@
 def filter_passed(people):
-    pass_people = []
-    for person in people:
-        if person["score"] >= 70:
-            person["label"] = "Pass"
-            pass_people.append(person)
-        else:
-            person["label"] = "Fail"
+    pass_people = [person for person in people if person["label"] == "Pass"]
     
     return pass_people
 
@@ -16,7 +10,10 @@ with open("scores.csv", "r") as f:
         person = {}
         person["name"], person["score"] = line.strip().split(",")
         person["score"] = int(person["score"])
-        print(person)
+        if person["score"] >= 70:
+            person["label"] = "Pass"
+        else:
+            person["label"] = "Fail"
         people.append(person)
   
 pass_people = filter_passed(people)
